@@ -1,24 +1,5 @@
 class Solution {
-    int dfs(int i ,int target,vector<int>&nums,vector<vector<int>>&dp)
-    {
-        if(target ==0) return 0;
-    if(i==0)
-    {
-        if(target % nums[0]==0)return target/nums[0];
-        else
-        {
-        return   1e8;
-        }
-    }
-    if(dp[i][target]!= INT_MAX) return dp[i][target];
-        int left = 0 + dfs(i -1 ,target,nums,dp);
-        int right = INT_MAX;
-        if(nums[i]<=target)
-        {
-            right = 1 +  dfs( i  ,target -nums[i],nums,dp); 
-        }
-        return dp[i][target] = min(left,right);
-    }
+  
 public:
     int coinChange(vector<int>& coins, int amount) {
    int n = coins.size();
@@ -28,10 +9,8 @@ public:
         for (int target = 0; target <= amount; target++) {
             if (target % coins[0] == 0)
                 dp[0][target] = target / coins[0];
-            // else stays 1e8 (impossible)
+            
         }
-        
-        // Fill rest of the table
         for (int i = 1; i < n; i++) {
             for (int target = 0; target <= amount; target++) {
                 int skip = dp[i - 1][target];
