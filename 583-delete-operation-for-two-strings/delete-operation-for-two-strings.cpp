@@ -1,5 +1,5 @@
 class Solution {
-    int fun(int i ,int j ,string nums1,string nums2,vector<vector<int>>&dp)
+    int fun(int i ,int j ,string &nums1,string &nums2,vector<vector<int>>&dp)
     {
     if(i<0||j<0) return 0;
     if(dp[i][j]!=-1)return dp[i][j];
