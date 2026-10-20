@@ -1,21 +1,25 @@
 class Solution {
-    int dps(int i, int cond, vector<int>& prices, vector < vector<int>> & dp) {
-        if (i == prices.size())
-            return 0;
-        if (dp[i][cond] != -1)
-            return dp[i][cond];
-        if (cond) {
-            return dp[i][cond] = max(-prices[i] + dps(i + 1, 0, prices, dp),
-                                     dps(i + 1, 1, prices, dp));
-        } else {
-            return dp[i][cond] = max(prices[i] + dps(i + 1, 1, prices, dp),
-                                     dps(i + 1, 0, prices, dp));
-        }
-    }
 
 public:
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>> dp(prices.size(), vector<int>(2, -1));
-        return dps(0, 1, prices, dp);
+        vector<vector<int>> dp(prices.size() +1, vector<int>(2, -1));
+        dp[prices.size()][0] =0;
+          dp[prices.size()][1] =0;
+        for(int i = prices.size() -1;i>=0;i--)
+        {
+            for(int cond =0;cond<2;cond++)
+            {
+                int prof =0;
+   if (cond) {
+             prof = max(-prices[i] + dp[i+1][0],
+                                     dp[i+1][1]);
+        } else {
+             prof = max(prices[i] + dp[i+1][1],
+                                    dp[i+1][0]);
+            }
+            dp[i][cond] = prof;
+        }
+    }
+    return dp[0][1];
     }
 };
